@@ -19,7 +19,7 @@ public class TriangleTest {
 
     @Test
     public void trianZeroConditional() {
-        Type valid = Triangle.classify(1, 2, 3);
+        Type line = Triangle.classify(1, 2, 3);
         Type cTooLong = Triangle.classify(1, 2, 4);
         Type bTooLong = Triangle.classify(1, 4, 2);
         Type aTooLong = Triangle.classify(4, 1, 2);
@@ -27,7 +27,7 @@ public class TriangleTest {
         assertEquals(INVALID, cTooLong);
         assertEquals(INVALID, aTooLong);
         assertEquals(INVALID, bTooLong);
-        assertEquals(SCALENE, valid);
+        assertEquals(INVALID, line);
     }
 
     @Test
