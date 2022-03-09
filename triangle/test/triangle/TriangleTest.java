@@ -125,4 +125,58 @@ public class TriangleTest {
         Type expected = ISOSCELES;
         assertEquals(actualAC, expected);
     }
+
+    @Test
+    public void barelyZeroValid() {
+        Type aBarelyValid = Triangle.classify(1, 4, 4);
+        Type bBarelyValid = Triangle.classify(4, 1, 4);
+        Type cBarelyValid = Triangle.classify(4, 4, 1);
+        assertEquals(aBarelyValid, ISOSCELES);
+        assertEquals(bBarelyValid, ISOSCELES);
+        assertEquals(cBarelyValid, ISOSCELES);
+        Type aBarelyInvalid = Triangle.classify(0, 4, 4);
+        Type bBarelyInvalid = Triangle.classify(4, 0, 4);
+        Type cBarelyInvalid = Triangle.classify(4, 4, 0);
+        Type abBarelyInvalid = Triangle.classify(0, 0, 4);
+        Type acBarelyInvalid = Triangle.classify(0, 4, 0);
+        Type bcBarelyInvalid = Triangle.classify(4, 0, 0);
+        assertEquals(aBarelyInvalid, INVALID);
+        assertEquals(bBarelyInvalid, INVALID);
+        assertEquals(cBarelyInvalid, INVALID);
+        assertEquals(acBarelyInvalid, INVALID);
+        assertEquals(bcBarelyInvalid, INVALID);
+        assertEquals(abBarelyInvalid, INVALID);
+    }
+
+    @Test
+    public void trianZeroMutations() {
+        Type abProduct = Triangle.classify(2, 4, 7);
+        Type acProduct = Triangle.classify(2, 7, 4);
+        Type bcProduct = Triangle.classify(7, 2, 4);
+        assertEquals(abProduct, INVALID);
+        assertEquals(acProduct, INVALID);
+        assertEquals(bcProduct, INVALID);
+        Type abSumEqual = Triangle.classify(2, 4, 6);
+        Type acSumEqual = Triangle.classify(2, 6, 4);
+        Type bcSumEqual = Triangle.classify(6, 2, 4);
+        assertEquals(abSumEqual, INVALID);
+        assertEquals(acSumEqual, INVALID);
+        assertEquals(bcSumEqual, INVALID);
+        Type abModulo = Triangle.classify(8, 2, 7);
+        Type acModulo = Triangle.classify(8, 7, 2);
+        Type bcModulo = Triangle.classify(7, 8, 2);
+        assertEquals(abModulo, SCALENE);
+        assertEquals(acModulo, SCALENE);
+        assertEquals(bcModulo, SCALENE);
+    }
+
+    @Test
+    public void trianNotZeroMutations() {
+        Type abProduct = Triangle.classify(3, 3, 7);
+        Type acProduct = Triangle.classify(3, 7, 3);
+        Type bcProduct = Triangle.classify(7, 3, 3);
+        assertEquals(abProduct, INVALID);
+        assertEquals(acProduct, INVALID);
+        assertEquals(bcProduct, INVALID);
+    }
 }
