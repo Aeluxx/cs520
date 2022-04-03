@@ -9,20 +9,20 @@ import java.awt.event.*;
 
 import model.RowGameModel;
 import controller.RowGameController;
+import java.util.*;
 
 public class RowGameGUI {
-    public JFrame gui = new JFrame("Tic Tac Toe");
-    public RowGameModel gameModel = new RowGameModel();
-    public JButton[][] blocks = new JButton[3][3];
-    public JButton reset = new JButton("Reset");
-    public JTextArea playerturn = new JTextArea();
+    private JFrame gui = new JFrame("Tic Tac Toe");
+    private ArrayList<ArrayList<JButton>> blocks = new ArrayList<ArrayList<JButton>>();
+    private JButton reset = new JButton("Reset");
+    private JTextArea playerturn = new JTextArea();
 
     /**
      * Creates a new game initializing the GUI.
      */
-    public RowGameGUI(RowGameController controller) {
+    public RowGameGUI(RowGameController controller, int m, int n, RowGameModel gameModel) {
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(new Dimension(500, 350));
+        gui.setSize(new Dimension(275 + (75 * n), 125 + (75 * m)));
         gui.setResizable(true);
 
         JPanel gamePanel = new JPanel(new FlowLayout());
@@ -39,7 +39,7 @@ public class RowGameGUI {
         gui.add(messages, BorderLayout.SOUTH);
 
         messages.add(playerturn);
-        playerturn.setText("Player 1 to play 'X'");
+        playerturn.setText("'X': Player 1");
 
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -47,17 +47,36 @@ public class RowGameGUI {
             }
         });
 
-        // Initialize a JButton for each cell of the 3x3 game board.
-        for(int row = 0; row<3; row++) {
-            for(int column = 0; column<3 ;column++) {
-                blocks[row][column] = new JButton();
-                blocks[row][column].setPreferredSize(new Dimension(75,75));
-                game.add(blocks[row][column]);
-                blocks[row][column].addActionListener(new ActionListener() {
+        // Initialize a JButton for each cell of the mxn game board.
+        for(int row = 0; row<m; row++) {
+            for(int column = 0; column<n ;column++) {
+                if (column == 0){
+                    blocks.add(new ArrayList<JButton>());
+                }
+                blocks.get(row).add(new JButton());
+                blocks.get(row).get(column).setPreferredSize(new Dimension(75,75));
+                game.add(blocks.get(row).get(column));
+                blocks.get(row).get(column).addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-			controller.move((JButton)e.getSource());
+                        JButton toFind = (JButton)e.getSource();
+                        int[] pos = new int[2];
+                        for (ArrayList<JButton> row : blocks) {
+                            int index = row.indexOf(toFind);
+                            if (index >= 0){
+                                pos[0] = blocks.indexOf(row);
+                                pos[1] = index;
+                                break;
+                            }
+                        }
+                        controller.move(pos[0], pos[1]);
                     }
                 });
+            }
+        }
+
+        for(int row = 0; row<m; row++) {
+            for(int column = 0; column<n ;column++) {
+                updateBlock(gameModel,row,column);
             }
         }
     }
@@ -71,7 +90,23 @@ public class RowGameGUI {
      * @param column The column that contains the block
      */
     public void updateBlock(RowGameModel gameModel, int row, int column) {
-	blocks[row][column].setText(gameModel.blocksData[row][column].getContents());
-	blocks[row][column].setEnabled(gameModel.blocksData[row][column].getIsLegalMove());
+        blocks.get(row).get(column).setText(gameModel.getAtPos(row, column).getContents());
     }
+
+    public void resetBlocks(RowGameModel gameModel, int m, int n){
+        for (int i = 0; i < m; i++){
+            for (int q = 0; q < n; q++){
+                updateBlock(gameModel, q, i);
+            }
+        }
+    }
+
+    public void setText(String value){
+        playerturn.setText(value);
+    }
+
+    public void setGUIVisibility(boolean value){
+        gui.setVisible(value);
+    }
+
 }
