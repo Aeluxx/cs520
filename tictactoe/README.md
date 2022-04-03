@@ -1,4 +1,5 @@
 # TicTacToe
+Edited by Matthew Gregory for CS 520
 
 ### How to build and test (from Terminal):
 
@@ -13,7 +14,11 @@
 ### How to run (from Terminal):
 
 1. After building the project (i.e., running `ant`), run the following command in the tictactoe folder:
-   `java -cp bin RowGameApp`
+   `java -cp bin RowGameApp [width] [height] [line length]`
+
+   `[width]` and `[height]` are the width and height of the game board.
+   
+   `[line length]` is the number of like values in a line needed to win (in regular tic-tac-toe, this is 3).
 
 ### How to clean up (from Terminal):
 
