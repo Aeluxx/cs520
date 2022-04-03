@@ -21,7 +21,12 @@ public class RowGameController {
 		gameModel = new RowGameModel(m, n, toWin);
 		gameView = new RowGameGUI(this, m, n, gameModel);
     }
-    
+
+    /**
+     * Tells the model to update itself at a certain position
+     *
+     * @param block The block to be moved to by the current player
+     */
     public void move(int x, int y) {
         //Checks whether the move is invalid, and doesn't process it if so
         if (gameModel.isGameOver() || gameModel.getAtPos(x, y).getContents().length() > 0){
@@ -64,10 +69,20 @@ public class RowGameController {
         gameView.resetBlocks(gameModel, gameModel.getHeight(), gameModel.getWidth());
     }
 
+    /**
+     * Updates the GUI Visibility
+     *
+     * @param value on whether GUI is visible (true) or not (false)
+     */
     public void setGUIVisibility(boolean value){
         gameView.setGUIVisibility(value);
     }
-    
+
+     /**
+     * Simple get method to return the RowGameModel
+     *
+     * @return gameModel
+     */
     public RowGameModel getModel(){
         return gameModel;
     }
