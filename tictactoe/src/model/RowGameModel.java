@@ -48,15 +48,31 @@ public class RowGameModel
 
         movesLeft = m * n;
     }
-    
+
+    /**
+     * Simple get method for private variable 'player'
+     *
+     * @return player whose turn it currently is
+     */
     public int getPlayer(){
         return player;
     }
-    
+
+    /**
+     * Simple get method for private variable 'movesLeft'
+     *
+     * @return number of possible moves left in the game
+     */
     public int getMovesLeft(){
         return movesLeft;
     }
-    
+
+    /**
+     * Simple set method for private variable
+     * Also sets game over if the number of moves left is zero
+     *
+     * @param value by which to modify 'movesLeft'
+     */
     public void modMovesLeft(int value){
         movesLeft += value;
         if (movesLeft == 0){
@@ -64,14 +80,31 @@ public class RowGameModel
         }
     }
 
+    /**
+     * Simple get method for private variable 'gameOver'
+     *
+     * @return whether or not the game is over
+     */
     public boolean isGameOver(){
         return gameOver;
     }
 
+    /**
+     * Retrieves the RowBlockModel at a specified location in blocksData
+     *
+     * @param x: first index of blocksData to find
+     * @param y: second index of blocksData to find
+     * @return RowBlockModel object stored at position (x, y) in blocksData
+     */
     public RowBlockModel getAtPos(int x, int y){
         return blocksData[x][y];
     }
 
+    /**
+     * Returns 'X' if the current player is Player 1, and 'O' otherwise
+     *
+     * @return String that matches the current player
+     */
     private String getPlayerString(){
         if (player == 1){
             return "X";
@@ -80,6 +113,13 @@ public class RowGameModel
         }
     }
 
+    /**
+     * Called when a user clicks on a position on the board, setting its value if legal and checking for victory
+     *
+     * @param x: first index to set
+     * @param y: second index to set
+     * @return -1 if no winner, otherwise 1 or 2 for Player 1 or 2 winning respectively
+     */
     public int takeMove(int x, int y){
         blocksData[x][y].setContents(getPlayerString());
 
@@ -121,6 +161,22 @@ public class RowGameModel
         }
     }
 
+    /**
+     * Method that takes a minimum and maximum number, and searches if all elements on a line for those x values
+     * match the value at the origin. Note that the origin can be on the edge of a line or the middle, depending on
+     * the values of min and max. The 'diff' argument is used to check for diagonals, searching with y + 1 or y - 1
+     * at each step for upwards and downwards diagonals respectively.
+     *
+     * Vertical lines are checked differently, with no change in x-values.
+     *
+     * @param x: First index of starting position
+     * @param y: Second index of starting position
+     * @param min: Lowest x-value difference to check
+     * @param max: Highest x-value difference to check
+     * @param diff: How much to increment y-value while continuing
+     * @param vertical: Flag that does a different check for no x-difference (i.e. vertical line)
+     * @return
+     */
     private boolean allMatch(int x, int y, int min, int max, int diff, boolean vertical){
         //Gets value to compare rest of line
         String value = blocksData[x][y].getContents();
@@ -149,6 +205,9 @@ public class RowGameModel
         return true;
     }
 
+    /**
+     * Resets the game, setting basic parameters to run again
+     */
     public void reset(){
         for (int i = 0; i < m; i++){
             for (int q = 0; q < n; q++){
@@ -160,11 +219,35 @@ public class RowGameModel
         player = 1;
     }
 
+    /**
+     * Simple get method that returns the height of the board
+     * @return m
+     */
     public int getWidth(){
         return m;
     }
 
+    /**
+     * Simple get method that returns the width of the board
+     * @return n
+     */
     public int getHeight(){
         return n;
+    }
+
+    public String[] getBoardState(){
+        String[] total = new String[m];
+        for (int i = 0; i < m; i++){
+            String line = "|";
+            for (int q = 0; q < n; q++){
+                String toAdd = getAtPos(i, q).getContents();
+                if (toAdd.length() == 0){
+                    toAdd = " ";
+                }
+                line += " " + toAdd + " |";
+            }
+            total[i] = line;
+        }
+        return total;
     }
 }
