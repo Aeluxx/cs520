@@ -74,6 +74,7 @@ public class RowGameGUI {
             }
         }
 
+        //Updates all of the model's blocks
         for(int row = 0; row<m; row++) {
             for(int column = 0; column<n ;column++) {
                 updateBlock(gameModel,row,column);
@@ -93,6 +94,13 @@ public class RowGameGUI {
         blocks.get(row).get(column).setText(gameModel.getAtPos(row, column).getContents());
     }
 
+    /**
+     * Reset method that clears the text from all blocks, called after setting their contents to an empty string
+     *
+     * @param gameModel: Model that is storing the blocks
+     * @param m: Height of the board
+     * @param n: Width of the board
+     */
     public void resetBlocks(RowGameModel gameModel, int m, int n){
         for (int i = 0; i < m; i++){
             for (int q = 0; q < n; q++){
@@ -101,12 +109,21 @@ public class RowGameGUI {
         }
     }
 
+    /**
+     * Sets the text stored in playerturn
+     *
+     * @param value: String to be stored in text
+     */
     public void setText(String value){
         playerturn.setText(value);
     }
 
+    /**
+     * Sets the visibility of the GUI based on the value
+     *
+     * @param value: Sets GUI to visible (true) or not visible (false)
+     */
     public void setGUIVisibility(boolean value){
         gui.setVisible(value);
     }
-
 }
