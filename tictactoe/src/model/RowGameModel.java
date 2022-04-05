@@ -235,6 +235,14 @@ public class RowGameModel
         return n;
     }
 
+    /**
+     * Testing method that returns an array of strings, each representing a line on the board
+     * 
+     * Notation is | Value | Value | Value |, with a number of values equal to the number of columns
+     * and with Value representing X, O, or " " if the space has yet to be selected.
+     * 
+     * @return String array where each element represents one row of the Tic Tac Toe board
+     */
     public String[] getBoardState(){
         String[] total = new String[m];
         for (int i = 0; i < m; i++){
