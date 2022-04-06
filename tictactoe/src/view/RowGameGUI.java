@@ -126,4 +126,13 @@ public class RowGameGUI {
     public void setGUIVisibility(boolean value){
         gui.setVisible(value);
     }
+    
+    /**
+     * Gets the text stored in playerturn
+     *
+     * @param value: String stored in text
+     */
+    public String getText(){
+        return playerturn.getText();
+    }
 }
