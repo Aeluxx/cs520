@@ -86,4 +86,22 @@ public class RowGameController {
     public RowGameModel getModel(){
         return gameModel;
     }
+	
+    /**
+     * Simple get method to return the RowGameGUI
+     *
+     * @return gameView
+     */
+    public RowGameGUI getGUI(){
+        return gameView;
+    }
+
+    /**
+     * Boolean method that returns true if a specified position is legal
+     *
+     * @return True if legal, False otherwise
+     */
+    public boolean isLegal(int x, int y){
+        return (x >= 0 && x < gameModel.getWidth() && y >= 0 && y < gameModel.getHeight());
+    }
 }
