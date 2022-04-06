@@ -18,7 +18,7 @@ Edited by Matthew Gregory for CS 520
 
    `[width]` and `[height]` are the width and height of the game board. Note that they must each be positive numbers.
    
-   `[line length]` is the number of like values in a line needed to win (in regular tic-tac-toe, this is 3). This number cannot exceed both width and height, in order ensure a win is possible.
+   `[line length]` is the number of like values in a line needed to win (in regular tic-tac-toe, this is 3). This number cannot exceed both width and height, in order ensure a win is possible. It must also be at least 2 to ensure a line.
 
 ### How to clean up (from Terminal):
 
