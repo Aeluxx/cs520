@@ -29,7 +29,7 @@ public class RowGameController {
      */
     public void move(int x, int y) {
         //Checks whether the move is invalid, and doesn't process it if so
-        if (gameModel.isGameOver() || gameModel.getAtPos(x, y).getContents().length() > 0){
+        if (!isLegal(x, y) || gameModel.isGameOver() || gameModel.getAtPos(x, y).getContents().length() > 0){
             return;
         }
 
