@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.*;
 
+import logger.Logger;
 import model.Player;
 import model.RowGameModel;
 import controller.RowGameController;
@@ -44,6 +45,7 @@ public class RowGameGUI implements RowGameView {
 
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                Logger.log("uses");
                 controller.resetGame();
             }
         });
@@ -52,6 +54,7 @@ public class RowGameGUI implements RowGameView {
     }
 
     public void update(RowGameModel gameModel) {
+        Logger.log("updates");
 	boardGameView.update(gameModel);
 	statusView.update(gameModel);
     }
