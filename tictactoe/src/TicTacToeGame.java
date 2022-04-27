@@ -60,6 +60,7 @@ public class TicTacToeGame {
 
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+				Logger.log("uses");
                 resetGame();
             }
         });
@@ -77,6 +78,7 @@ public class TicTacToeGame {
                 game.add(blocks[row][column]);
                 blocks[row][column].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+						Logger.log("uses");
 			move((JButton)e.getSource());
                     }
                 });
@@ -90,15 +92,17 @@ public class TicTacToeGame {
      * @param block The block to be moved to by the current player
      */
     protected void move(JButton block) {
-	Logger.log("uses");
-	
+
 	--movesLeft;
 	if(movesLeft%2 == 1) {
+		Logger.log("updates");
 	    playerturn.setText("'X': Player 1");
 	} else{
+		Logger.log("updates");
 	    playerturn.setText("'O': Player 2");
 	}
-	
+
+	Logger.log("manipulates");
 	if(player.equals("1")) {
 	    // Check whether player 1 won
 	    if(block==blocks[0][0]) {
@@ -112,9 +116,11 @@ public class TicTacToeGame {
 			blocksData[1][0].getContents().equals(blocksData[2][0].getContents())) ||
 		       (blocksData[0][0].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[2][2].getContents()))) {
+			Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -127,9 +133,11 @@ public class TicTacToeGame {
 			blocksData[0][0].getContents().equals(blocksData[0][2].getContents())) ||
 		       (blocksData[0][1].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[2][1].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -144,9 +152,11 @@ public class TicTacToeGame {
 			blocksData[1][2].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[0][2].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[2][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -160,9 +170,11 @@ public class TicTacToeGame {
 			blocksData[1][1].getContents().equals(blocksData[1][2].getContents())) ||
 		       (blocksData[1][0].getContents().equals(blocksData[0][0].getContents()) &&
 			blocksData[0][0].getContents().equals(blocksData[2][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -180,9 +192,11 @@ public class TicTacToeGame {
 			blocksData[0][0].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[1][1].getContents().equals(blocksData[0][2].getContents()) &&
 			blocksData[0][2].getContents().equals(blocksData[2][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -196,9 +210,11 @@ public class TicTacToeGame {
 			blocksData[0][2].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[1][2].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[1][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -214,9 +230,11 @@ public class TicTacToeGame {
 			blocksData[1][0].getContents().equals(blocksData[0][0].getContents())) ||
 		       (blocksData[2][0].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[0][2].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -230,9 +248,11 @@ public class TicTacToeGame {
 			blocksData[2][0].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[2][1].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[0][1].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -248,9 +268,11 @@ public class TicTacToeGame {
 			blocksData[1][2].getContents().equals(blocksData[0][2].getContents())) ||
 		       (blocksData[2][2].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[0][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 1 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -268,9 +290,11 @@ public class TicTacToeGame {
 			blocksData[1][0].getContents().equals(blocksData[2][0].getContents())) ||
 		       (blocksData[0][0].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[2][2].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -283,9 +307,11 @@ public class TicTacToeGame {
 			blocksData[0][0].getContents().equals(blocksData[0][2].getContents())) ||
 		       (blocksData[0][1].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[2][1].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -300,9 +326,11 @@ public class TicTacToeGame {
 			blocksData[1][2].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[0][2].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[2][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -316,9 +344,11 @@ public class TicTacToeGame {
 			blocksData[1][1].getContents().equals(blocksData[1][2].getContents())) ||
 		       (blocksData[1][0].getContents().equals(blocksData[0][0].getContents()) &&
 			blocksData[0][0].getContents().equals(blocksData[2][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -336,9 +366,11 @@ public class TicTacToeGame {
 			blocksData[0][0].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[1][1].getContents().equals(blocksData[0][2].getContents()) &&
 			blocksData[0][2].getContents().equals(blocksData[2][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -352,9 +384,11 @@ public class TicTacToeGame {
 			blocksData[0][2].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[1][2].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[1][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -370,9 +404,11 @@ public class TicTacToeGame {
 			blocksData[1][0].getContents().equals(blocksData[0][0].getContents())) ||
 		       (blocksData[2][0].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[0][2].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -386,9 +422,11 @@ public class TicTacToeGame {
 			blocksData[2][0].getContents().equals(blocksData[2][2].getContents())) ||
 		       (blocksData[2][1].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[0][1].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -404,9 +442,11 @@ public class TicTacToeGame {
 			blocksData[1][2].getContents().equals(blocksData[0][2].getContents())) ||
 		       (blocksData[2][2].getContents().equals(blocksData[1][1].getContents()) &&
 			blocksData[1][1].getContents().equals(blocksData[0][0].getContents()))) {
+				Logger.log("updates");
 			playerturn.setText("Player 2 wins!");
 			endGame();
 		    } else if(movesLeft==0) {
+				Logger.log("updates");
 			playerturn.setText(GAME_END_NOWINNER);
 		    }
 		}
@@ -422,6 +462,7 @@ public class TicTacToeGame {
      * @param column The column that contains the block
      */
     protected void updateBlock(int row, int column) {
+		Logger.log("updates");
 	blocks[row][column].setText(blocksData[row][column].getContents());
 	blocks[row][column].setEnabled(blocksData[row][column].getIsLegalMove());
     }
@@ -430,6 +471,7 @@ public class TicTacToeGame {
      * Ends the game disallowing further player turns.
      */
     public void endGame() {
+		Logger.log("updates");
 	for(int row = 0;row<3;row++) {
 	    for(int column = 0;column<3;column++) {
 		blocks[row][column].setEnabled(false);
@@ -441,17 +483,18 @@ public class TicTacToeGame {
      * Resets the game to be able to start playing again.
      */
     public void resetGame() {
-	Logger.log("uses");
-	
         for(int row = 0;row<3;row++) {
             for(int column = 0;column<3;column++) {
                 blocksData[row][column].reset();
-		blocksData[row][column].setIsLegalMove(true);
-		updateBlock(row,column);
+				Logger.log("manipulates");
+				blocksData[row][column].setIsLegalMove(true);
+				updateBlock(row,column);
             }
         }
+		Logger.log("manipulates");
         player = "1";
         movesLeft = 9;
+		Logger.log("updates");
         playerturn.setText("Player 1 to play 'X'");
     }
 }
