@@ -1,4 +1,5 @@
 package view;
+import logger.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -24,7 +25,8 @@ public class RowBoardGameView implements RowGameView {
                 game.add(blocks[row][column]);
                 blocks[row][column].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-			controller.move((JButton)e.getSource());
+                        Logger.log("uses");
+                        controller.move((JButton)e.getSource());
                     }
                 });
             }
