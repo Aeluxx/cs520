@@ -44,8 +44,6 @@ public class RowGameController {
      * @param block The block to be moved to by the current player
      */
     public void move(JButton block) {
-	Logger.log("uses");
-	
 	// Check the pre-conditions for a legal move
 	BlockIndex blockIndex = this.getBlockIndex(block);
 	if ((blockIndex == null) || 
@@ -53,6 +51,7 @@ public class RowGameController {
 	    return;
 	}
 
+	Logger.log("manipulates");
 	gameModel.setMovesLeft(gameModel.getMovesLeft() - 1);
 	
 	if(gameModel.getPlayer().equals(Player.PLAYER_1)) {
@@ -364,6 +363,7 @@ public class RowGameController {
      * Ends the game disallowing further player turns.
      */
     public void endGame() {
+		Logger.log("manipulates");
 	for(int row = 0;row<3;row++) {
 	    for(int column = 0;column<3;column++) {
 		gameModel.blocksData[row][column].setIsLegalMove(false);
@@ -377,8 +377,7 @@ public class RowGameController {
      * Resets the game to be able to start playing again.
      */
     public void resetGame() {
-	Logger.log("uses");
-	
+		Logger.log("manipulates");
         for(int row = 0;row<3;row++) {
             for(int column = 0;column<3;column++) {
                 gameModel.blocksData[row][column].reset();
