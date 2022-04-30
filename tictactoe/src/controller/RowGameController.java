@@ -10,9 +10,11 @@ import java.awt.event.*;
 import model.RowGameModel;
 import view.RowGameGUI;
 
-public class RowGameController {
-    private RowGameModel gameModel;
-    private RowGameGUI gameView;
+public abstract class RowGameController {
+    protected RowGameModel gameModel;
+    protected RowGameGUI gameView;
+    protected int lastMoveRow = -1;
+    protected int lastMoveColumn = -1;
 
     /**
      * Creates a new game initializing the GUI.
@@ -54,6 +56,9 @@ public class RowGameController {
                     gameView.setText("'O': Player 2");
                 }
             }
+
+            lastMoveRow = x;
+            lastMoveColumn = y;
         } else {
             //Player #result wins
             gameView.setText("Player " + result + " Wins!");
@@ -86,7 +91,7 @@ public class RowGameController {
     public RowGameModel getModel(){
         return gameModel;
     }
-	
+
     /**
      * Simple get method to return the RowGameGUI
      *
@@ -101,7 +106,33 @@ public class RowGameController {
      *
      * @return True if legal, False otherwise
      */
-    public boolean isLegal(int x, int y){
-        return (x >= 0 && x < gameModel.getWidth() && y >= 0 && y < gameModel.getHeight());
+    public abstract boolean isLegal(int x, int y);
+
+    /**
+     * Tells the model to undo the last move taken
+     **/
+    public void undoMove() {
+        //Checks whether there is a last move that can be undone
+        if (lastMoveRow == -1 || gameModel.isGameOver()){
+            return;
+        }
+
+        //Increments the move count
+        gameModel.modMovesLeft(1);
+
+        //Makes the model update at the position, and check for victory
+        gameModel.clearAt(lastMoveRow, lastMoveColumn);
+        gameView.updateBlock(gameModel, lastMoveRow, lastMoveColumn);
+
+        //Reset last move row and column
+        lastMoveRow = -1;
+        lastMoveColumn = -1;
+
+        //Set text to display new turn taker
+        if(gameModel.getMovesLeft()%2 == 1) {
+            gameView.setText("'X': Player 1");
+        } else{
+            gameView.setText("'O': Player 2");
+        }
     }
 }
