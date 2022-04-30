@@ -258,4 +258,15 @@ public class RowGameModel
         }
         return total;
     }
+    
+    /**
+     * Method that clears the content of a block at a given location
+     * 
+     * @param x: The row of the cleared tile
+     * @param y: The column of the cleared tile
+     */
+    public void clearAt(int x, int y){
+        blocksData[x][y].setContents("");
+        player = 3 - player;
+    }
 }
