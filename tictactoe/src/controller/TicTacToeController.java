@@ -1,15 +1,5 @@
 package controller;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-
-import model.RowGameModel;
-import view.RowGameGUI;
-
 public class TicTacToeController extends RowGameController {
 
     /**
@@ -17,6 +7,9 @@ public class TicTacToeController extends RowGameController {
      */
     public TicTacToeController(int m, int n, int toWin) {
         super(m, n, toWin);
+    }
+    public TicTacToeController(int m, int n, int toWin, boolean flag) {
+        super(m, n, toWin, flag);
     }
 
     /**
