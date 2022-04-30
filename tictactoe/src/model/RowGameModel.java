@@ -1,9 +1,12 @@
 package model;
 
+import controller.RowGameController;
+import view.RowGameGUI;
 
-public class RowGameModel 
+public class RowGameModel
 {
     private RowBlockModel[][] blocksData;
+    private RowGameGUI gameView;
 
     /**
      * The current player taking their turn
@@ -30,8 +33,7 @@ public class RowGameModel
      * @param n: width of board
      * @param toWin: length of line needed to win
      */
-    public RowGameModel(int m, int n, int toWin) {
-        super();
+    public RowGameModel(int m, int n, int toWin, RowGameController controller) {
 
         this.m = m;
         this.n = n;
@@ -47,6 +49,8 @@ public class RowGameModel
         } // end for row
 
         movesLeft = m * n;
+
+        gameView = new RowGameGUI(controller, m, n, this);
     }
 
     /**
@@ -77,6 +81,12 @@ public class RowGameModel
         movesLeft += value;
         if (movesLeft == 0){
             gameOver = true;
+        }
+
+        if(getMovesLeft()%2 == 1) {
+            gameView.setText("'X': Player 1");
+        } else{
+            gameView.setText("'O': Player 2");
         }
     }
 
@@ -122,6 +132,7 @@ public class RowGameModel
      */
     public int takeMove(int x, int y){
         blocksData[x][y].setContents(getPlayerString());
+        gameView.updateBlock(this, x, y);
 
         boolean victory = false;
 
@@ -150,6 +161,7 @@ public class RowGameModel
 
         if (victory){
             gameOver = true;
+            gameView.setText("Player " + player + " Wins!");
             return player;
         } else {
             if (player == 1){
@@ -157,6 +169,11 @@ public class RowGameModel
             } else {
                 player = 1;
             }
+
+            if (movesLeft == 0){
+                gameView.setText("Its a draw!");
+            }
+
             return -1;
         }
     }
@@ -217,6 +234,9 @@ public class RowGameModel
         gameOver = false;
         movesLeft = m * n;
         player = 1;
+
+        gameView.setText("'X': Player 1");
+        gameView.resetBlocks(this, getHeight(), getWidth());
     }
 
     /**
@@ -237,10 +257,10 @@ public class RowGameModel
 
     /**
      * Testing method that returns an array of strings, each representing a line on the board
-     * 
+     *
      * Notation is | Value | Value | Value |, with a number of values equal to the number of columns
      * and with Value representing X, O, or " " if the space has yet to be selected.
-     * 
+     *
      * @return String array where each element represents one row of the Tic Tac Toe board
      */
     public String[] getBoardState(){
@@ -258,15 +278,34 @@ public class RowGameModel
         }
         return total;
     }
-    
+
     /**
      * Method that clears the content of a block at a given location
-     * 
+     *
      * @param x: The row of the cleared tile
      * @param y: The column of the cleared tile
      */
     public void clearAt(int x, int y){
         blocksData[x][y].setContents("");
         player = 3 - player;
+        gameView.updateBlock(this, x, y);
+    }
+
+    /**
+     * Updates the GUI Visibility
+     *
+     * @param value on whether GUI is visible (true) or not (false)
+     */
+    public void setGUIVisibility(boolean value){
+        gameView.setGUIVisibility(value);
+    }
+
+    /**
+     * Simple get method to return the RowGameGUI
+     *
+     * @return gameView
+     */
+    public RowGameGUI getGUI(){
+        return gameView;
     }
 }
