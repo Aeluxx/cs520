@@ -1,3 +1,5 @@
+import controller.ThreeInARowController;
+import controller.TicTacToeController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +14,6 @@ import controller.RowGameController;
 public class TestExample {
     private RowGameController game;
 
-    @Before
-    public void setUp() {
-	    game = new RowGameController(5, 5, 3);
-    }
-
     @After
     public void tearDown() {
 	    game = null;
@@ -27,7 +24,7 @@ public class TestExample {
      */
     @Test
     public void testNewGame() {
-        game = new RowGameController(5, 5, 3);
+        game = new TicTacToeController(5, 5, 3);
         assertEquals (1, game.getModel().getPlayer());
         assertEquals (25, game.getModel().getMovesLeft());
         for (int i = 0; i < 5; i++){
@@ -42,7 +39,7 @@ public class TestExample {
      */
     @Test
     public void testGameProgress() {
-        game = new RowGameController(5, 5, 3);
+        game = new TicTacToeController(5, 5, 3);
         game.move(0, 0); //Player 1 moves at (0, 0)
         game.move(1, 1); //Player 2 moves at (1, 1)
         game.move(2, 2); //Player 1 moves at (2, 2)
@@ -65,7 +62,7 @@ public class TestExample {
      */
     @Test
     public void testGameVictory() {
-        game = new RowGameController(5, 5, 3);
+        game = new TicTacToeController(5, 5, 3);
         game.move(0, 0); //Player 1 moves at (0, 0)
         game.move(1, 1); //Player 2 moves at (1, 1)
         game.move(2, 2); //Player 1 moves at (2, 2)
@@ -91,7 +88,7 @@ public class TestExample {
      */
     @Test
     public void testRepeatedMoves() {
-        game = new RowGameController(5, 5, 3);
+        game = new TicTacToeController(5, 5, 3);
         game.move(0, 0); //Player 1 moves at (0, 0)
         game.move(0, 0); //Player 2 tries a move at (0, 0) - doesn't work since already taken
 
@@ -104,7 +101,7 @@ public class TestExample {
      */
     @Test
     public void testTiedGame() {
-        game = new RowGameController(3, 3, 3);
+        game = new TicTacToeController(3, 3, 3);
         game.move(0, 0); //Player 1 moves at (0, 0)
         game.move(0, 2); //Player 2 moves at (1, 1)
         game.move(0, 1); //Player 1 moves at (2, 2)
@@ -132,7 +129,7 @@ public class TestExample {
      */
     @Test
     public void testResetGame() {
-        game = new RowGameController(2, 2, 2);
+        game = new TicTacToeController(2, 2, 2);
         game.move(0, 0); //Player 1 moves at (0, 0)
         game.move(0, 1); //Player 2 moves at (0, 1)
         game.move(1, 1); //Player 1 moves at (1, 1) and wins
@@ -183,7 +180,7 @@ public class TestExample {
      */
     @Test
     public void testMoveAfterGame() {
-        game = new RowGameController(2, 2, 2);
+        game = new TicTacToeController(2, 2, 2);
         game.move(0, 0); //Player 1 moves at (0, 0)
         game.move(0, 1); //Player 2 moves at (0, 1)
         game.move(1, 1); //Player 1 moves at (1, 1) and wins
@@ -214,7 +211,7 @@ public class TestExample {
      */
     @Test
     public void testMoveBoundaries() {
-        game = new RowGameController(2, 2, 2);
+        game = new TicTacToeController(2, 2, 2);
         game.move(-1, -1); //Player 1 tries to move at (3, 3)
         game.move(3, 3); //Player 1 tries to move at (3, 3)
 
@@ -237,7 +234,7 @@ public class TestExample {
     public void testBoardSize() {
         for (int i = 2; i < 9; i++){
             for (int q = 2; q < 9; q++){
-                game = new RowGameController(i, q, i);
+                game = new TicTacToeController(i, q, i);
                 assertEquals(i, game.getModel().getWidth());
                 assertEquals(q, game.getModel().getHeight());
             }
@@ -250,7 +247,7 @@ public class TestExample {
      */
     @Test
     public void testMoveByMove() {
-        game = new RowGameController(3, 3, 3);
+        game = new TicTacToeController(3, 3, 3);
 
         String[] expectedState = new String[]{
                 "|   |   |   |",
@@ -281,7 +278,7 @@ public class TestExample {
      */
     @Test
     public void testPlayer2Win() {
-        game = new RowGameController(3, 3, 3);
+        game = new TicTacToeController(3, 3, 3);
 
         //Moves Taken
         game.move(0, 0); //Player 1 moves at (0, 0)
@@ -307,5 +304,63 @@ public class TestExample {
     @Test(expected = IllegalArgumentException.class)
     public void testNewBlockViolatesPrecondition() {
 	    RowBlockModel block = new RowBlockModel(null);
+    }
+
+    /**
+     * Tests 3-in-a-row legal move
+     */
+    @Test
+    public void testGameThreeInARow() {
+        game = new ThreeInARowController(3, 3, 3);
+
+        //Moves Taken
+        game.move(2, 0); //Player 1 moves at (2, 0)
+        game.move(2, 1); //Player 2 moves at (2, 1)
+        game.move(1, 2); //Player 1 tries to move at (1, 2) - Nothing happens since invalid
+        game.move(2, 2); //Player 1 moves at (2, 2)
+        game.move(1, 2); //Player 2 moves at (1, 2)
+        game.move(1, 1); //Player 1 moves at (1, 1)
+        game.move(1, 0); //Player 2 moves at (1, 0)
+        game.move(0, 2); //Player 1 moves at (0, 2)
+
+        String[] expectedState = new String[]{
+                "|   |   | X |",
+                "| O | X | O |",
+                "| X | O | X |"
+        };
+
+        //Validate that the above game runs correctly
+        assertEquals(1, game.getModel().getPlayer());
+        assertEquals(expectedState, game.getModel().getBoardState());
+        assertEquals(true, game.getModel().isGameOver());
+        assertEquals("Player 1 Wins!", game.getGUI().getText());
+        assertEquals(expectedState, game.getModel().getBoardState());
+    }
+
+    /**
+     * Tests 3-in-a-row illegal moves
+     */
+    @Test
+    public void testGameThreeInARowIllegal() {
+        game = new ThreeInARowController(3, 3, 3);
+
+        //Moves Taken
+        for (int i = 0; i < 2; i++){
+            for (int q = 0; q < 3; q++){
+                game.move(i, q);
+            }
+        }
+
+        String[] expectedState = new String[]{
+                "|   |   |   |",
+                "|   |   |   |",
+                "|   |   |   |"
+        };
+
+        //Validate that the above game runs correctly
+        assertEquals(1, game.getModel().getPlayer());
+        assertEquals(false, game.getModel().isGameOver());
+        assertEquals("'X': Player 1", game.getGUI().getText());
+        assertEquals(expectedState, game.getModel().getBoardState());
     }
 }
