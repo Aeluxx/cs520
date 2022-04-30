@@ -137,8 +137,6 @@ public class RowGameGUI {
 
     /**
      * Gets the text stored in playerturn
-     *
-     * @param value: String stored in text
      */
     public String getText(){
         return playerturn.getText();
