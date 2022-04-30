@@ -42,11 +42,9 @@ public class RowGameApp
         System.out.println("Creating board of size (" + args[0] + ", " + args[1] + ")...");
 
         if (mode == 0){
-            TicTacToeController game = new TicTacToeController(width, height, toWin);
-            game.setGUIVisibility(true);
+            TicTacToeController game = new TicTacToeController(width, height, toWin, true);
         } else {
-            ThreeInARowController game = new ThreeInARowController(width, height, toWin);
-            game.setGUIVisibility(true);
+            ThreeInARowController game = new ThreeInARowController(width, height, toWin, true);
         }
 
     }
