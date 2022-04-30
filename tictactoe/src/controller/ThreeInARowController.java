@@ -17,6 +17,9 @@ public class ThreeInARowController extends RowGameController {
     public ThreeInARowController(int m, int n, int toWin) {
 		super(m, n, toWin);
     }
+    public ThreeInARowController(int m, int n, int toWin, boolean flag) {
+        super(m, n, toWin, flag);
+    }
 
     /**
      * Boolean method that returns true if a specified position is legal
@@ -30,4 +33,3 @@ public class ThreeInARowController extends RowGameController {
         return false;
     }
 }
-
