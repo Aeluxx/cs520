@@ -15,6 +15,7 @@ public class RowGameGUI {
     private JFrame gui = new JFrame("Tic Tac Toe");
     private ArrayList<ArrayList<JButton>> blocks = new ArrayList<ArrayList<JButton>>();
     private JButton reset = new JButton("Reset");
+    private JButton undo = new JButton("Undo");
     private JTextArea playerturn = new JTextArea();
 
     /**
@@ -31,6 +32,7 @@ public class RowGameGUI {
 
         JPanel options = new JPanel(new FlowLayout());
         options.add(reset);
+        options.add(undo);
         JPanel messages = new JPanel(new FlowLayout());
         messages.setBackground(Color.white);
 
@@ -44,6 +46,12 @@ public class RowGameGUI {
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.resetGame();
+            }
+        });
+
+        undo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.undoMove();
             }
         });
 
@@ -126,7 +134,7 @@ public class RowGameGUI {
     public void setGUIVisibility(boolean value){
         gui.setVisible(value);
     }
-    
+
     /**
      * Gets the text stored in playerturn
      *
