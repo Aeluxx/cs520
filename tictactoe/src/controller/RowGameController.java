@@ -1,18 +1,10 @@
 package controller;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-
 import model.RowGameModel;
 import view.RowGameGUI;
 
 public abstract class RowGameController {
     protected RowGameModel gameModel;
-    protected RowGameGUI gameView;
     protected int lastMoveRow = -1;
     protected int lastMoveColumn = -1;
 
@@ -20,14 +12,22 @@ public abstract class RowGameController {
      * Creates a new game initializing the GUI.
      */
     public RowGameController(int m, int n, int toWin) {
-		gameModel = new RowGameModel(m, n, toWin);
-		gameView = new RowGameGUI(this, m, n, gameModel);
+		gameModel = new RowGameModel(m, n, toWin, this);
+    }
+
+    /**
+     * Creates a new game initializing the GUI.
+     */
+    public RowGameController(int m, int n, int toWin, boolean flag) {
+        gameModel = new RowGameModel(m, n, toWin, this);
+        gameModel.setGUIVisibility(flag);
     }
 
     /**
      * Tells the model to update itself at a certain position
      *
-     * @param block The block to be moved to by the current player
+     * @param x The row of the chosen tile
+     * @param y The column of the chosen tile
      */
     public void move(int x, int y) {
         //Checks whether the move is invalid, and doesn't process it if so
@@ -40,28 +40,12 @@ public abstract class RowGameController {
 
         //Makes the model update at the position, and check for victory
         int result = gameModel.takeMove(x, y);
-        gameView.updateBlock(gameModel, x, y);
 
-        //Result = -1, 1, or 2 for No Winner, Player 1 Wins, and Player 2 Wins
+        //Result = -1 if no winner
         if (result == -1){
             //No winner is found
-            if (gameModel.getMovesLeft() == 0){
-                //No moves can be made
-                gameView.setText("Its a draw!");
-            } else {
-                //Next player's turn
-                if(gameModel.getMovesLeft()%2 == 1) {
-                    gameView.setText("'X': Player 1");
-                } else{
-                    gameView.setText("'O': Player 2");
-                }
-            }
-
             lastMoveRow = x;
             lastMoveColumn = y;
-        } else {
-            //Player #result wins
-            gameView.setText("Player " + result + " Wins!");
         }
     }
 
@@ -70,17 +54,6 @@ public abstract class RowGameController {
      */
     public void resetGame() {
         gameModel.reset();
-        gameView.setText("'X': Player 1");
-        gameView.resetBlocks(gameModel, gameModel.getHeight(), gameModel.getWidth());
-    }
-
-    /**
-     * Updates the GUI Visibility
-     *
-     * @param value on whether GUI is visible (true) or not (false)
-     */
-    public void setGUIVisibility(boolean value){
-        gameView.setGUIVisibility(value);
     }
 
      /**
@@ -98,7 +71,7 @@ public abstract class RowGameController {
      * @return gameView
      */
     public RowGameGUI getGUI(){
-        return gameView;
+        return gameModel.getGUI();
     }
 
     /**
@@ -122,17 +95,9 @@ public abstract class RowGameController {
 
         //Makes the model update at the position, and check for victory
         gameModel.clearAt(lastMoveRow, lastMoveColumn);
-        gameView.updateBlock(gameModel, lastMoveRow, lastMoveColumn);
 
         //Reset last move row and column
         lastMoveRow = -1;
         lastMoveColumn = -1;
-
-        //Set text to display new turn taker
-        if(gameModel.getMovesLeft()%2 == 1) {
-            gameView.setText("'X': Player 1");
-        } else{
-            gameView.setText("'O': Player 2");
-        }
     }
 }
