@@ -1,15 +1,5 @@
 package controller;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-
-import model.RowGameModel;
-import view.RowGameGUI;
-
 public class ThreeInARowController extends RowGameController {
     /**
      * Creates a new game initializing the GUI.
