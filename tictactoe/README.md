@@ -14,11 +14,13 @@ Edited by Matthew Gregory for CS 520
 ### How to run (from Terminal):
 
 1. After building the project (i.e., running `ant`), run the following command in the tictactoe folder:
-   `java -cp bin RowGameApp [width] [height] [line length]`
+   `java -cp bin RowGameApp [width] [height] [line length] [mode]`
 
    `[width]` and `[height]` are the width and height of the game board. Note that they must each be positive numbers.
    
    `[line length]` is the number of like values in a line needed to win (in regular tic-tac-toe, this is 3). This number cannot exceed both width and height, in order ensure a win is possible. It must also be at least 2 to ensure a line.
+   
+   `[mode]` is the mode of the game to play. A value of 0 plays Tic Tac Toe and a value of 1 plays Three In A Row. No other values are accepted.
 
 ### How to clean up (from Terminal):
 
